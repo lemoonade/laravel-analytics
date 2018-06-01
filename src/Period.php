@@ -19,15 +19,13 @@ class Period
         return new static($startDate, $endDate);
     }
 
-    public static function days(int $numberOfDays): self
+    public static function days($day): self
     {
-        $endDate = Carbon::today();
-
-        $startDate = Carbon::today()->subDays($numberOfDays)->startOfDay();
+        $endDate = $day;
+        $startDate = $day;
 
         return new static($startDate, $endDate);
     }
-
     public static function months(int $numberOfMonths): self
     {
         $endDate = Carbon::today();
@@ -46,7 +44,7 @@ class Period
         return new static($startDate, $endDate);
     }
 
-    public function __construct(DateTime $startDate, DateTime $endDate)
+    public function __construct($startDate, $endDate)
     {
         if ($startDate > $endDate) {
             throw InvalidPeriod::startDateCannotBeAfterEndDate($startDate, $endDate);
