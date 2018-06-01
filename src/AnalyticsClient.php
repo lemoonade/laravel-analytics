@@ -49,7 +49,7 @@ class AnalyticsClient
      *
      * @return array|null
      */
-    public function performQuery(string $viewId, DateTime $startDate, DateTime $endDate, string $metrics, array $others = [])
+    public function performQuery(string $viewId, $startDate, $endDate, string $metrics, array $others = [])
     {
         $cacheName = $this->determineCacheName(func_get_args());
 
@@ -60,8 +60,8 @@ class AnalyticsClient
         return $this->cache->remember($cacheName, $this->cacheLifeTimeInMinutes, function () use ($viewId, $startDate, $endDate, $metrics, $others) {
             $result = $this->service->data_ga->get(
                 "ga:{$viewId}",
-                $startDate->format('Y-m-d'),
-                $endDate->format('Y-m-d'),
+                $startDate,
+                $endDate,
                 $metrics,
                 $others
             );
